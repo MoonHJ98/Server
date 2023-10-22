@@ -6,3 +6,5 @@ Client/ProjectSettings
 Client/Temp
 Client/Logs
 Client/Packages
+*.log
+Client/Packages/manifest.json
