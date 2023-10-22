@@ -9,3 +9,4 @@ Client/Packages
 *.log
 Client/Packages/manifest.json
 *.log
+*.cache

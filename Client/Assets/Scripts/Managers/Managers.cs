@@ -42,6 +42,7 @@ public class Managers : MonoBehaviour
 	void Start()
     {
         Init();
+        Application.runInBackground = true;
 	}
 
     void Update()
