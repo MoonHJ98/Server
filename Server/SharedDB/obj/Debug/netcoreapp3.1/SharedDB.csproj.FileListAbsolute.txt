@@ -1,0 +1,10 @@
+C:\Users\admin\Desktop\MMO_Game\Server\SharedDB\obj\Debug\netcoreapp3.1\SharedDB.csproj.AssemblyReference.cache
+C:\Users\admin\Desktop\MMO_Game\Server\SharedDB\obj\Debug\netcoreapp3.1\SharedDB.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\admin\Desktop\MMO_Game\Server\SharedDB\obj\Debug\netcoreapp3.1\SharedDB.AssemblyInfoInputs.cache
+C:\Users\admin\Desktop\MMO_Game\Server\SharedDB\obj\Debug\netcoreapp3.1\SharedDB.AssemblyInfo.cs
+C:\Users\admin\Desktop\MMO_Game\Server\SharedDB\obj\Debug\netcoreapp3.1\SharedDB.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\MMO_Game\Server\SharedDB\bin\Debug\netcoreapp3.1\SharedDB.deps.json
+C:\Users\admin\Desktop\MMO_Game\Server\SharedDB\bin\Debug\netcoreapp3.1\SharedDB.dll
+C:\Users\admin\Desktop\MMO_Game\Server\SharedDB\bin\Debug\netcoreapp3.1\SharedDB.pdb
+C:\Users\admin\Desktop\MMO_Game\Server\SharedDB\obj\Debug\netcoreapp3.1\SharedDB.dll
+C:\Users\admin\Desktop\MMO_Game\Server\SharedDB\obj\Debug\netcoreapp3.1\SharedDB.pdb

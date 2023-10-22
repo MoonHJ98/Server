@@ -1,0 +1,24 @@
+{
+  "stats": [
+    {
+      "name": "My_Goblin_rouge_b",
+      "hp": "100",
+      "maxHp": "100",
+      "damage": "10",
+      "defense": "5",
+      "level": "1",
+      "exp": "0",
+      "totalExp": "5"
+    },
+    {
+      "name": "Player",
+      "hp": "100",
+      "maxHp": "100",
+      "damage": "10",
+      "defense": "10",
+      "level": "1",
+      "exp": "0",
+      "totalExp": "5"
+    }
+  ]
+} 

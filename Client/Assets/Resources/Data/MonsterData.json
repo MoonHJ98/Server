@@ -1,0 +1,42 @@
+{
+  "monsters": [
+    {
+      "name": "My_Goblin_rouge_b",
+      "stat": {
+        "hp": "200",
+        "maxHp": "200",
+        "damage": "5",
+        "level": "1",
+        "exp": "0",
+        "totalExp": "10"
+      },
+      "rewards": [
+        {
+          "probability": "10",
+          "itemTemplateId": "1",
+          "count": "1"
+        },
+        {
+          "probability": "10",
+          "itemTemplateId": "2",
+          "count": "1"
+        },
+        {
+          "probability": "10",
+          "itemTemplateId": "100",
+          "count": "1"
+        },
+        {
+          "probability": "10",
+          "itemTemplateId": "101",
+          "count": "1"
+        },
+        {
+          "probability": "10",
+          "itemTemplateId": "200",
+          "count": "5"
+        }
+      ]
+    }
+  ]
+} 

@@ -1,0 +1,330 @@
+syntax = "proto3";
+
+package Protocol;
+import "google/protobuf/timestamp.proto";
+option csharp_namespace = "Google.Protobuf.Protocol";
+
+enum MsgId {
+	// Game
+	S_ENTER_GAME = 0;
+	S_LEAVE_GAME = 1;
+	S_SPAWN = 2;
+	S_DESPAWN = 3;
+	C_MOVE = 4;
+	S_MOVE = 5;
+	C_ATTACK = 6;
+	S_ATTACK = 7;
+	C_MONSTER_MOVE = 10;
+	S_MONSTER_MOVE = 11;
+	C_MONSTER_ATTACK = 12;
+	S_MONSTER_ATTACK = 13;
+	S_DEAD = 15;
+	C_DAMAGED = 16;
+	S_CHANGE_HP = 17;
+	C_SPAWN = 18;
+	C_DEAD_END = 19;
+	S_DEAD_END = 20;
+	S_MONSTERS_DEAD = 21;
+	C_UPDATE_POS = 22;
+
+	// LogIn
+	S_CONNECTED = 100;
+	C_LOGIN = 101;
+	S_LOGIN = 102;
+	C_ENTER_GAME = 103;
+	C_CREATE_PLAYER = 104;
+	S_CREATE_PLAYER = 105;
+
+	// item
+	S_ITEM_LIST = 200;
+	S_ADD_ITEM = 201;
+	C_EQUIP_ITEM = 202;
+	S_EQUIP_ITEM = 203;
+	S_CHANGE_STAT = 204;
+
+	// Map
+	C_MAP_ZONE = 300;
+
+
+}
+
+enum CreatureState {
+	IDLE = 0;
+	FALLING = 1;
+	MOVING = 2;
+	ATTACK = 3;
+	DAMEGED = 4;
+	DEAD = 5;
+	DEAD_EFFECT = 6;
+	DEAD_END = 7;
+	SWORD_ATTACK = 8;
+	SWORD_ATTACK_2 = 9;
+	SWORD_ATTACK_3 = 10;
+}
+
+enum SkillType {
+	SKILLNONE = 0;
+	SKILLMELEE = 1;
+	SKILLPROJECTILE = 2;
+}
+
+// 플레이어가 현재 어디에 있는지
+enum PlayerServerState {
+	SERVER_STATE_LOGIN = 0;
+	SERVER_STATE_LOBBY = 1;
+	SERVER_STATE_GAME = 2;
+}
+
+enum ItemType {
+	ITEM_TYPE_NONE = 0;
+	ITEM_TYPE_WEAPON = 1;
+	ITEM_TYPE_ARMOUR = 2;
+	ITEM_TYPE_CONSUMABLE = 3;
+}
+
+enum WeaponType {
+	WEAPON_TYPE_NONE = 0;
+	WEAPON_TYPE_SWORD = 1;
+	WEAPON_TYPE_BOW = 2;
+}
+
+enum ArmourType {
+	Armour_TYPE_NONE = 0;
+	Armour_TYPE_HELMET = 1;
+	Armour_TYPE_ARMOUR = 2;
+	Armour_TYPE_BOOTS = 3;
+	Armour_TYPE_GLOVES = 4;
+
+}
+enum ConsumableType {
+	Consumable_TYPE_NONE = 0;
+	Consumable_TYPE_POTION = 1;
+} 
+
+enum SpawnInfo {
+	MONSTER = 0;
+	PLAYER = 1;
+	PROJECTILE = 2;
+}
+
+message S_EnterGame {
+	ObjectInfo player = 1;
+}
+
+message S_LeaveGame {
+
+}
+
+message S_Spawn {
+	repeated ObjectInfo objects = 1;
+}
+
+message S_Despawn {
+	repeated ObjectInfo objects = 1;
+}
+
+message PosDirInfo {
+	float posX = 1;
+	float posY = 2;
+	float posZ = 3;
+
+	float LookDirX = 4;
+	float LookDirZ = 5;
+
+	CreatureState state = 6;
+}
+
+message C_Move {
+	PosDirInfo posDirInfo = 1;
+}
+
+message C_Attack {
+	AttackInfo info = 1;
+}
+
+message S_Attack {
+	// 누가 사용한건지
+	int32 playerId = 1;
+	AttackInfo info = 2;
+}
+
+message S_Move {
+	// 누가 이동할 것인지
+	int32 playerId = 1;
+	PosDirInfo posDirInfo = 2;
+}
+
+// 어떤 공격인지(펀치, 검공격, 활...)
+message AttackInfo {
+	int32 attackId = 1;
+}
+
+
+message ObjectInfo {
+	int32 objectId = 1;
+	string name = 2;
+	PosDirInfo posDirInfo = 3;
+	StatInfo statInfo = 4;
+	string genPoint = 5;
+	SpawnInfo spawnInfo = 6;
+	PosDirInfo target = 7;
+	int32 EquippedWeaponTemplateId = 8;
+}
+message C_MonsterMove {
+	// 어떤 몬스터가 얼만큼 이동할지
+	ObjectInfo monsterInfo = 1;
+
+}
+message S_MonsterMove {
+	ObjectInfo monsterInfo = 1;
+
+}
+message C_MonsterAttack {
+	ObjectInfo monsterInfo = 1;
+	AttackInfo attackInfo = 2;
+
+}
+message S_MonsterAttack {
+	ObjectInfo monsterInfo = 1;
+	AttackInfo attackInfo = 2;
+	int32 state = 3;
+}
+
+message S_Dead {
+	int32 objectId = 1;
+	string genId = 2;
+	int32 state = 3;
+}
+
+message StatInfo {
+	string name = 1;
+	int32 hp = 2;
+	int32 maxHp = 3;
+	int32 damage = 4;
+	int32 defense = 5;
+	int32 level = 6;
+	int32 exp = 7;
+	int32 totalExp  = 8;
+}
+message Projectile {
+	string name = 1;
+	float speed = 2;
+	int32 range = 3;
+}
+message SkillInfo {
+	int32 id = 1;
+	string name = 2;
+	float cooldown = 3;
+	int32 damage = 4;
+	SkillType skillType = 5;
+	Projectile projectile = 6;
+}
+
+message C_Damaged {
+	int32 attackerId = 1;
+	string attackerGenId = 2;
+	int32 attackType = 3; // 어떤 공격인지
+
+	int32 defenderId = 4;
+	string defenderGenId = 5;
+}
+message S_ChangeHp {
+	int32 attackerId = 1;
+	string attackerGenId = 2;
+
+	int32 defenderId = 3;
+	string defenderGenId = 4;
+	int32 defenderHp = 5;
+}
+
+message S_Connected {
+}
+message C_Login{
+	string uniqueId = 1;
+	string accountName = 2;
+	int32 token = 3;
+}
+message S_Login {
+	int32 loginOk = 1;
+	repeated LobbyPlayerInfo players = 2; // 계정내의 캐릭터들
+}
+
+message C_CreatePlayer {
+	string name = 1;
+}
+
+message S_CreatePlayer {
+	LobbyPlayerInfo player = 1;
+}
+
+message C_EnterGame {
+	string name = 1;
+}
+message S_ItemList {
+	repeated ItemInfo items = 1;
+}
+message S_AddItem {
+	repeated ItemInfo items = 1;
+}
+message ItemInfo {
+	int32 itemId = 1;
+	int32 templateId = 2;
+	int32 count = 3;
+	int32 slot = 4;
+	bool equipped = 5;
+}
+
+message LobbyPlayerInfo {
+	string name = 1;
+	StatInfo statInfo = 2;
+}
+
+message C_EquipItem {
+	int32 itemId = 1;
+	bool equipped = 2;
+	int32 itemType = 3;
+	int32 itemTemplateId = 4;
+}
+message S_EquipItem {
+	int32 itemId = 1;
+	bool equipped = 2;
+	int32 playerId = 3;
+	int32 itemTemplateId = 4;
+	ItemType itemType = 5;
+}
+message S_ChangeStat {
+	StatInfo statInfo = 1;
+}
+
+message ZoneInfo {
+	string name = 1;
+	float leftX = 2;
+	float rightX = 3;
+	float forwardZ = 4;
+	float backwardZ = 5;
+}
+
+message C_MapZone {
+	repeated ZoneInfo zones = 1;
+}
+
+message C_Spawn {
+	repeated ObjectInfo objects = 2;
+}
+
+message S_DeadEnd {
+	ObjectInfo info = 1;
+}
+message C_DeadEnd {
+	// 몬스터용 클라에서 오브젝트가 죽었을 때(죽음 이펙트 끝났을 때) 보내는 패킷
+	ObjectInfo info = 1;
+}
+message S_MonstersDead {
+	repeated ObjectInfo monsters = 1;
+}
+message C_UpdatePos {
+	SpawnInfo spawnInfo = 1;
+	int32 id = 2;
+	string genId = 3;
+	PosDirInfo posInfo = 4;
+}

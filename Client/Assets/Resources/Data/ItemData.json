@@ -1,0 +1,57 @@
+{
+  "weapons": [
+    {
+      "id": "1",
+      "name": "검",
+      "weaponType": "Sword",
+      "damage": "10",
+      "iconPath": "Textures/Items/Weapons/No_bg/02_Sword_nobg"
+    },
+    {
+      "id": "2",
+      "name": "활",
+      "weaponType": "Bow",
+      "damage": "5",
+      "iconPath": "Textures/Items/Weapons/No_bg/01_Bow_nobg"
+    }
+  ],
+  "armours": [
+    {
+      "id": "100",
+      "name": "갑옷",
+      "armourType": "Armour",
+      "defence": "15",
+      "iconPath": "Textures/Items/Armour/Common/No_bg/01_plate_chest_nobg"
+    },
+    {
+      "id": "101",
+      "name": "투구",
+      "armourType": "Helmet",
+      "defence": "5",
+      "iconPath": "Textures/Items/Armour/Common/No_bg/03_plate_helm_nobg"
+    },
+    {
+      "id": "102",
+      "name": "부츠",
+      "armourType": "Boots",
+      "defence": "5",
+      "iconPath": "Textures/Items/Armour/Common/No_bg/05_plate_boots_nobg"
+    },
+    {
+      "id": "103",
+      "name": "장갑",
+      "armourType": "Gloves",
+      "defence": "5",
+      "iconPath": "Textures/Items/Armour/Common/No_bg/04_plate_gloves_nobg"
+    }
+  ],
+  "consumables": [
+    {
+      "id": "200",
+      "name": "HP 물약",
+      "consumableType": "Potion",
+      "maxCount": "10",
+      "iconPath": "Textures/Items/Resources/No_bg/15_Heal_potion_nobg"
+    }
+  ]
+} 
