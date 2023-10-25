@@ -26,6 +26,11 @@ enum MsgId {
 	S_DEAD_END = 20;
 	S_MONSTERS_DEAD = 21;
 	C_UPDATE_POS = 22;
+	C_DUNGEON_DAMAGED = 23;
+	S_DUNGEON_DAMAGED = 24;
+	S_MATCHING_CONNECTED = 25;
+	C_MATCHING_LOGIN = 26;
+	S_ENTER_MATCHING = 27;
 
 	// LogIn
 	S_CONNECTED = 100;
@@ -107,8 +112,14 @@ enum SpawnInfo {
 	PROJECTILE = 2;
 }
 
+enum ServerConnecInfo {
+	Zone = 0;
+	Matching = 1;
+	Dungeon = 2;
+}
 message S_EnterGame {
 	ObjectInfo player = 1;
+	ServerConnecInfo serverInfo = 2;
 }
 
 message S_LeaveGame {
@@ -228,6 +239,18 @@ message C_Damaged {
 	int32 defenderId = 4;
 	string defenderGenId = 5;
 }
+message C_DungeonDamaged {
+	int32 attackerId = 1;
+	int32 attackType = 3; // 어떤 공격인지
+
+	string defenderName = 4;
+	int32 damage = 5;
+
+}
+message S_DungeonDamaged {
+	string defenderName = 1;
+	int32 damage = 2;
+}
 message S_ChangeHp {
 	int32 attackerId = 1;
 	string attackerGenId = 2;
@@ -238,6 +261,7 @@ message S_ChangeHp {
 }
 
 message S_Connected {
+	ServerConnecInfo serverInfo = 1;
 }
 message C_Login{
 	string uniqueId = 1;
@@ -247,6 +271,7 @@ message C_Login{
 message S_Login {
 	int32 loginOk = 1;
 	repeated LobbyPlayerInfo players = 2; // 계정내의 캐릭터들
+	ServerConnecInfo serverInfo = 3;
 }
 
 message C_CreatePlayer {
@@ -255,6 +280,7 @@ message C_CreatePlayer {
 
 message S_CreatePlayer {
 	LobbyPlayerInfo player = 1;
+	ServerConnecInfo serverInfo = 2;
 }
 
 message C_EnterGame {
@@ -327,4 +353,14 @@ message C_UpdatePos {
 	int32 id = 2;
 	string genId = 3;
 	PosDirInfo posInfo = 4;
+}
+message S_MatchingConnected {
+
+}
+message C_MatchingLogin {
+	string userName = 1;
+}
+
+message S_EnterMatching {
+	repeated string userNames = 1;
 }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Numerics;
 using System.Reflection.Metadata;
 using System.Text;
+using System.Threading;
 
 namespace Server.Game
 {
@@ -76,6 +77,7 @@ namespace Server.Game
 				var equippedWeapon = newPlayer.Inventory.Find(args => args.Equipped == true && args.ItemType == ItemType.Weapon);
 				if(equippedWeapon != null)
 					enterPacket.Player.EquippedWeaponTemplateId = equippedWeapon.TemplateId;
+				Thread.Sleep(100);
 				newPlayer.Session.Send(enterPacket);
 
 				newPlayer.Vision.Update();

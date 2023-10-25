@@ -7,13 +7,14 @@ using UnityEngine;
 using Google.Protobuf;
 using System.Linq.Expressions;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
+using System.Threading;
+using System.Data;
 
 public class NetworkManager
 {
-	ServerSession _session = new ServerSession();
-	ServerSession _matchingSession = new ServerSession();
-
-	List<ServerSession> sessionList = new List<ServerSession>();
+	public ServerSession _session = null;
+	public ServerSession _matchingSession = null;
+	public ServerSession _dungeonSession = null;
 
 
 	public string AccountName { get; set; }
@@ -24,7 +25,15 @@ public class NetworkManager
 
 	public void Send(IMessage packet)
 	{
-		_session.Send(packet);
+		if (Managers.Scene.CurrentScene.SceneType == Define.Scene.Game)
+			_session.Send(packet);
+		else if(Managers.Scene.CurrentScene.SceneType == Define.Scene.Dungeon)
+			_dungeonSession.Send(packet);
+
+	}
+	public void SendMatching(IMessage packet)
+	{
+		_matchingSession.Send(packet);
 	}
 
 	public string Server = "192.168.0.15";
@@ -37,6 +46,8 @@ public class NetworkManager
 
 		Connector connector = new Connector();
 
+		//Interlocked.Exchange(ref _session._disconnected, 0);
+		_session = new ServerSession();
 		connector.Connect(endPoint,
 			() => { return _session; },
 			1);
@@ -50,13 +61,44 @@ public class NetworkManager
 
 		Connector connector = new Connector();
 
+		//Interlocked.Exchange(ref _session._disconnected, 0);
+		_session = new ServerSession();
+
 		connector.Connect(endPoint,
 			() => { return _session; },
 			1);
 	}
-	public void DisConnecetMatching()
+	public void ConnectToDungeon()
+	{
+
+		IPAddress ipAddr = IPAddress.Parse(Server);
+		IPAddress = ipAddr;
+		IPEndPoint endPoint = new IPEndPoint(ipAddr, 9999);
+
+		Connector connector = new Connector();
+
+		//Interlocked.Exchange(ref _dungeonSession._disconnected, 0);
+		_dungeonSession = new ServerSession();
+		connector.Connect(endPoint,
+			() => { return _dungeonSession; },
+			1);
+	}
+	public void DisConnectServer()
+	{
+		_session.Disconnect();
+		_session = null;
+
+
+	}
+	public void DisConnectDungeon()
+	{
+		_dungeonSession.Disconnect();
+		_dungeonSession = null;
+	}
+	public void DisConnectMatching()
 	{
 		_matchingSession.Disconnect();
+		_matchingSession = null;
 	}
 	public void ConnectToMatching()
 	{
@@ -66,7 +108,8 @@ public class NetworkManager
 		IPEndPoint endPoint = new IPEndPoint(ipAddr, 8888);
 		
 		Connector connector = new Connector();
-		
+
+		_matchingSession = new ServerSession();
 		connector.Connect(endPoint,
 			() => { return _matchingSession; },
 			1);

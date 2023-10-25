@@ -7,11 +7,17 @@ public class AnimationEvent : MonoBehaviour
 {
 	public void PlayerPunch()
 	{
+		if (Managers.Scene.CurrentScene.SceneType == Define.Scene.Game)
+			if (this.gameObject.GetComponent<MyPlayerController>() != null)
+				return;
+
+
 		var obj = GameObject.Find("PunchTrigger");
 		if (obj == null)
 			return;
 
 		obj.GetComponent<BoxCollider>().enabled = true;
+
 	}
 	public void PlayerPunchEnd()
 	{

@@ -46,7 +46,7 @@ namespace ServerCore
 	public abstract class Session
 	{
 		Socket _socket;
-		int _disconnected = 0;
+		public int _disconnected = 0;
 
 		RecvBuffer _recvBuffer = new RecvBuffer(65535);
 

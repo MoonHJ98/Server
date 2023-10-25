@@ -17,6 +17,8 @@ public class ObjectManager
 	Dictionary<string, List<GameObject>> monsters = new Dictionary<string, List<GameObject>>();
 	int monsterId = 1;
 
+	public List<GameObject> dungeonMonsters = new List<GameObject>();
+
 	// 서버용 클라이언트가 몬스터 추가할때
 	public void AddMonster(string genPoint, GameObject _monster, int monsterKey = 0)
 	{
@@ -151,6 +153,7 @@ public class ObjectManager
 							go.transform.localPosition = Vector3.zero;
 							go.transform.localRotation = Quaternion.identity;
 							MyPlayer.weapon = go;
+							break;
 						}
 					}
 				}
@@ -188,6 +191,7 @@ public class ObjectManager
 							go.transform.localPosition = Vector3.zero;
 							go.transform.localRotation = Quaternion.identity;
 							pc.weapon = go;
+							break;
 						}
 					}
 				}

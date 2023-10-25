@@ -39,6 +39,10 @@ class PacketManager
 		_handler.Add((ushort)MsgId.CDeadEnd, PacketHandler.C_DeadEndHandler);		
 		_onRecv.Add((ushort)MsgId.CUpdatePos, MakePacket<C_UpdatePos>);
 		_handler.Add((ushort)MsgId.CUpdatePos, PacketHandler.C_UpdatePosHandler);		
+		_onRecv.Add((ushort)MsgId.CDungeonDamaged, MakePacket<C_DungeonDamaged>);
+		_handler.Add((ushort)MsgId.CDungeonDamaged, PacketHandler.C_DungeonDamagedHandler);		
+		_onRecv.Add((ushort)MsgId.CMatchingLogin, MakePacket<C_MatchingLogin>);
+		_handler.Add((ushort)MsgId.CMatchingLogin, PacketHandler.C_MatchingLoginHandler);		
 		_onRecv.Add((ushort)MsgId.CLogin, MakePacket<C_Login>);
 		_handler.Add((ushort)MsgId.CLogin, PacketHandler.C_LoginHandler);		
 		_onRecv.Add((ushort)MsgId.CEnterGame, MakePacket<C_EnterGame>);

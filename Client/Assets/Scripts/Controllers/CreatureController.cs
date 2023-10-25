@@ -22,7 +22,7 @@ public class CreatureController : MonoBehaviour
 
 	// 서버에서 받은 위치, 방향 정보
 	PosDirInfo posDirInfo = new PosDirInfo();
-	StatInfo statInfo = new StatInfo();
+	public StatInfo statInfo = new StatInfo();
 
 	public Coroutine coUpdatePos;
 
@@ -150,7 +150,7 @@ public class CreatureController : MonoBehaviour
 
 	}
 
-	void UpdateHpBar()
+	public void UpdateHpBar()
 	{
 		if (hpBar == null)
 			return;

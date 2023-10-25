@@ -196,4 +196,11 @@ class PacketHandler
 
 		room.Push(room.HandleUpdatePos, updatePosPacket);
 	}
+	public static void C_DungeonDamagedHandler(PacketSession session, IMessage packet)
+	{
+
+	}
+	public static void C_MatchingLoginHandler(PacketSession session, IMessage packet)
+	{
+	}
 }

@@ -76,12 +76,13 @@ namespace Server
 
 		public override void OnConnected(EndPoint endPoint)
 		{
-			//Console.WriteLine($"OnConnected : {endPoint}");
-			GameLogic.Instance.Push(() =>
-			{
-				GameRoom room = GameLogic.Instance.Find(1);
-				room.Push(room.EnterGame, MyPlayer);
-			});
+
+			Console.WriteLine($"OnConnected : {endPoint}");
+			//GameLogic.Instance.Push(() =>
+			//{
+			//	GameRoom room = GameLogic.Instance.Find(1);
+			//	room.Push(room.EnterGame, MyPlayer);
+			//});
 			// 몬스터 관리용 클라
 			if (PlayerManager.Instance._playerId == 1)
 			{
@@ -100,6 +101,7 @@ namespace Server
 			}
 
 			S_Connected connectedPacket = new S_Connected();
+
 			Send(connectedPacket);
 
 		}

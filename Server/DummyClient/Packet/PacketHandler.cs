@@ -144,4 +144,14 @@ public class PacketHandler
 	{
 		S_MonstersDead deadPacket = packet as S_MonstersDead;
 	}
+	public static void S_DungeonDamagedHandler(PacketSession session, IMessage packet)
+	{
+		S_MonstersDead deadPacket = packet as S_MonstersDead;
+	}
+	public static void S_MatchingConnectedHandler(PacketSession session, IMessage packet)
+	{
+	}
+	public static void S_EnterMatchingHandler(PacketSession session, IMessage packet)
+	{
+	}
 }

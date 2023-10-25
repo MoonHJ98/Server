@@ -42,13 +42,17 @@ public class MyPlayerController : CreatureController
 			movePacket.PosDirInfo.LookDirZ = 0f;
 
 			Managers.Network.Send(movePacket);
+
 		}
 		else if (State == CreatureState.Moving)
 		{
 			animator.SetInteger("ani", (int)CreatureState.Moving);
 			C_Move movePacket = new C_Move();
 			movePacket.PosDirInfo = PosDirInfo;
+
+
 			Managers.Network.Send(movePacket);
+
 		}
 		else if (State == CreatureState.Attack)
 		{
@@ -105,6 +109,23 @@ public class MyPlayerController : CreatureController
 		base.UpdateController();
 
 		GetUIKeyInput();
+
+		UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+		var matchingUI = gameSceneUI.MatchingUI.MatchingBoardUI.MoveDungeonUI;
+		if (matchingUI != null && matchingUI.gameObject.activeSelf == true)
+		{
+			matchingUI.time -= Time.deltaTime;
+			matchingUI.SetTime((int)matchingUI.time);
+		}
+
+		if (Managers.Scene.CurrentScene.SceneType == Scene.Dungeon)
+		{
+			if(Managers.Objects.dungeonMonsters.Count == 0)
+			{
+				UI_DungeonClear dungeonClearUI = gameSceneUI.DungeonClearUI;
+				dungeonClearUI.gameObject.SetActive(true);
+			}
+		}
 
 
 		if (characterController.isGrounded == false)

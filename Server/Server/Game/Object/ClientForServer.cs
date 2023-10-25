@@ -79,7 +79,11 @@ namespace Server.Game.Object
 				packet.Monsters.Add(monster.ObjectInfo);
 			}
 			GameRoom room = Room;
-			room.Push(room.Broadcast, packet);
+			if (room == null)
+				return;
+
+			if(packet.Monsters.Count >= 1)
+				room.Push(room.Broadcast, packet);
 
 			DeadMonsters = DeadMonsters.Except(monsters).ToList();
 

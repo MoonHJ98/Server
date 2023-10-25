@@ -14,18 +14,22 @@ class PacketHandler
 		S_EnterGame enterGamePacket = packet as S_EnterGame;
 		ServerSession serverSession = session as ServerSession;
 
-		if (enterGamePacket.Player.ObjectId == 1)
+		if (enterGamePacket.ServerInfo == ServerConnecInfo.Zone)
 		{
-			//Managers.Network.ConnectToGame();
-			//Managers.Scene.LoadScene(Define.Scene.Game);
-			Managers.Objects.AddClientForServer();
-			return;
+			if (enterGamePacket.Player.ObjectId == 1)
+			{
+				//Managers.Network.ConnectToGame();
+				//Managers.Scene.LoadScene(Define.Scene.Game);
+				Managers.Objects.AddClientForServer();
+				return;
+			}
 		}
 
 		// 여기서 만들면 네트워크 스레드에서 생성하는것임.
 		// 게임컨텐츠에는 메인스레드에서만 접근할 수 있음
 		// ClientPacketManager에서 패킷을 만듣 후 PacketHandler에서 바로 실행되는 것이 아니라
 		// PacketQueue에 넣은 후 메인스레드에서 생성해줘야함
+
 		Managers.Objects.Add(enterGamePacket.Player, myPlayer: true);
 
 	}
@@ -198,13 +202,16 @@ class PacketHandler
 		// 같은 로컬 머신에서 클라를 여러개 띄우기 위한 코드
 		string path = Application.dataPath;
 
+		S_Connected p = packet as S_Connected;
 		C_Login loginPacket = new C_Login()
 		{
 			UniqueId = path.GetHashCode().ToString(),
 			AccountName = Managers.Network.AccountName,
 			Token = Managers.Network.Token
 		};
-		Managers.Network.Send(loginPacket);
+		if(p.ServerInfo == ServerConnecInfo.Zone || p.ServerInfo == ServerConnecInfo.Dungeon)
+			Managers.Network.Send(loginPacket);
+
 	}
 	public static void S_LoginHandler(PacketSession session, IMessage packet)
 	{
@@ -216,7 +223,9 @@ class PacketHandler
 		{
 			C_CreatePlayer createPacket = new C_CreatePlayer();
 			createPacket.Name = $"Player_{Random.Range(0, 10000).ToString("0000")}";
-			Managers.Network.Send(createPacket);
+
+			if (loginPacket.ServerInfo == ServerConnecInfo.Zone || loginPacket.ServerInfo == ServerConnecInfo.Dungeon)
+				Managers.Network.Send(createPacket);
 		}
 		else
 		{
@@ -224,7 +233,9 @@ class PacketHandler
 			LobbyPlayerInfo info = loginPacket.Players[0];
 			C_EnterGame enterGamePacket = new C_EnterGame();
 			enterGamePacket.Name = info.Name;
-			Managers.Network.Send(enterGamePacket);
+
+			if (loginPacket.ServerInfo == ServerConnecInfo.Zone || loginPacket.ServerInfo == ServerConnecInfo.Dungeon)
+				Managers.Network.Send(enterGamePacket);
 		}
 	}
 	public static void S_CreatePlayerHandler(PacketSession session, IMessage packet)
@@ -235,13 +246,15 @@ class PacketHandler
 		{
 			C_CreatePlayer createPacket = new C_CreatePlayer();
 			createPacket.Name = $"Player_{Random.Range(0, 10000).ToString("0000")}";
-			Managers.Network.Send(createPacket);
+			if (createOkPacket.ServerInfo == ServerConnecInfo.Zone || createOkPacket.ServerInfo == ServerConnecInfo.Dungeon)
+				Managers.Network.Send(createOkPacket);
 		}
 		else
 		{
 			C_EnterGame enterGamePacket = new C_EnterGame();
 			enterGamePacket.Name = createOkPacket.Player.Name;
-			Managers.Network.Send(enterGamePacket);
+			if (createOkPacket.ServerInfo == ServerConnecInfo.Zone || createOkPacket.ServerInfo == ServerConnecInfo.Dungeon)
+				Managers.Network.Send(createOkPacket);
 		}
 	}
 	public static void S_ItemListHandler(PacketSession session, IMessage packet)
@@ -356,6 +369,50 @@ class PacketHandler
 			if (cc == null)
 				return;
 			cc.SetState((int)CreatureState.Dead);
+		}
+	}
+	public static void S_DungeonDamagedHandler(PacketSession session, IMessage packet)
+	{
+		S_DungeonDamaged damagedPacket = packet as S_DungeonDamaged;
+		var monster = GameObject.Find(damagedPacket.DefenderName);
+
+		if(monster == null) return;
+
+		var mc = monster.GetComponent<DungeonMonsterController>();
+		if(mc == null) return;
+
+		mc.Hp -= damagedPacket.Damage;
+
+		if(mc.Hp <= 0)
+			mc.State = CreatureState.Dead;
+	}
+	public static void S_MatchingConnectedHandler(PacketSession session, IMessage packet)
+	{
+		S_MatchingConnected p = packet as S_MatchingConnected;
+		C_MatchingLogin loginPacket = new C_MatchingLogin()
+		{
+			UserName = Managers.Objects.MyPlayer.gameObject.name
+		};
+
+		Managers.Network.SendMatching(loginPacket);
+	}
+	public static void S_EnterMatchingHandler(PacketSession session, IMessage packet)
+	{
+		S_EnterMatching p = packet as S_EnterMatching;
+
+		UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+
+		gameSceneUI.MatchingUI.MatchingBoardUI.RefreshUI();
+
+		foreach(var user in p.UserNames)
+		{
+			gameSceneUI.MatchingUI.MatchingBoardUI.SetPlayer(user);
+		}
+
+		if(gameSceneUI.MatchingUI.MatchingBoardUI.ReadyToMoveDungeon())
+		{
+			gameSceneUI.MatchingUI.MatchingBoardUI.MoveDungeonUI.gameObject.SetActive(true);
+			gameSceneUI.MatchingUI.MatchingBoardUI.MoveDungeonUI.RefreshUI();
 		}
 	}
 }

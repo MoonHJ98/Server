@@ -80,7 +80,7 @@ namespace Server
 			t.Start();
 		}
 
-		public static string ServerName { get; } = "서버_1";
+		public static string ServerName { get; } = "존";
 		public static string Ip { get; set; }
 		public static int Port { get; } = 7777;
 
