@@ -128,6 +128,7 @@
     <Compile Include="Assets\Scripts\Packet\Protocol.cs" />
     <Compile Include="Assets\Scripts\Managers\Core\PoolManager.cs" />
     <Compile Include="Assets\Resources\Monster\Mushroom\Script\MushroomMon_Ani_Test.cs" />
+    <Compile Include="Assets\Scripts\UI\Scene\UI_Chatting.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\JMO Assets\Cartoon FX (legacy)\Shaders\CFX3 Multiply Color.shader" />

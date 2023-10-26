@@ -62,6 +62,52 @@ namespace Server
 				Thread.Sleep(0);
 			}
 		}
+		static void ChattingTask()
+		{
+			TcpListener server = null;
+			try
+			{
+				string host = Dns.GetHostName();
+				IPHostEntry ipHost = Dns.GetHostEntry(host);
+				System.Net.IPAddress ipAddr = ipHost.AddressList[1];
+				server = new TcpListener(ipAddr, 6666);
+				server.Start();
+
+				Byte[] bytes = new Byte[256];
+				String data = null;
+
+				while (true)
+				{
+					TcpClient client = server.AcceptTcpClient();
+
+					data = null;
+
+					NetworkStream stream = client.GetStream();
+
+					int i;
+					while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
+					{
+						data = Encoding.UTF8.GetString(bytes, 0, i);
+						var room = GameLogic.Instance.Find(1);
+						S_Chat chat = new S_Chat()
+						{
+							Chat = data
+						};
+						room.Push(room.Broadcast, chat);
+					}
+
+					client.Close();
+				}
+			}
+			catch (SocketException e)
+			{
+				Console.WriteLine($"SocketException: {e}");
+			}
+			finally
+			{
+				server.Stop();
+			}
+		}
 		static void StartServerInfoTask()
 		{
 			var t = new System.Timers.Timer();
@@ -117,6 +163,10 @@ namespace Server
 			Thread networkTask = new Thread(NetworkTask);
 			networkTask.Name = "Network Send";
 			networkTask.Start();
+
+			Thread chattingTask = new Thread(ChattingTask);
+			chattingTask.Name = "Chatting";
+			chattingTask.Start();
 
 			// GameLogicTask
 			Thread.CurrentThread.Name = "GameLogic";

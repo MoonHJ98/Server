@@ -415,4 +415,11 @@ class PacketHandler
 			gameSceneUI.MatchingUI.MatchingBoardUI.MoveDungeonUI.RefreshUI();
 		}
 	}
+	public static void S_ChatHandler(PacketSession session, IMessage packet)
+	{
+		S_Chat p = packet as S_Chat;
+
+		UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+		gameSceneUI.ChattingUI.chatText.text += p.Chat + "\n";
+	}
 }

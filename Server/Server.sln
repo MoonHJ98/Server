@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DungeonServer", "DungeonSer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchingServer", "MatchingServer\MatchingServer.csproj", "{629CD479-FFCC-4923-9DE3-E4E305244B37}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChattingServer", "ChattingServer\ChattingServer.csproj", "{60DA5C7B-6640-40F1-8E2F-98C6C861FE8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{629CD479-FFCC-4923-9DE3-E4E305244B37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{629CD479-FFCC-4923-9DE3-E4E305244B37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{629CD479-FFCC-4923-9DE3-E4E305244B37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60DA5C7B-6640-40F1-8E2F-98C6C861FE8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60DA5C7B-6640-40F1-8E2F-98C6C861FE8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60DA5C7B-6640-40F1-8E2F-98C6C861FE8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60DA5C7B-6640-40F1-8E2F-98C6C861FE8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

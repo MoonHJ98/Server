@@ -265,6 +265,7 @@ namespace Server.Game
 				Zones.Add(zone);
 			}
 		}
+
 	}
 }
 

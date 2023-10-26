@@ -53,6 +53,8 @@ class PacketManager
 		_handler.Add((ushort)MsgId.SMatchingConnected, PacketHandler.S_MatchingConnectedHandler);		
 		_onRecv.Add((ushort)MsgId.SEnterMatching, MakePacket<S_EnterMatching>);
 		_handler.Add((ushort)MsgId.SEnterMatching, PacketHandler.S_EnterMatchingHandler);		
+		_onRecv.Add((ushort)MsgId.SChat, MakePacket<S_Chat>);
+		_handler.Add((ushort)MsgId.SChat, PacketHandler.S_ChatHandler);		
 		_onRecv.Add((ushort)MsgId.SConnected, MakePacket<S_Connected>);
 		_handler.Add((ushort)MsgId.SConnected, PacketHandler.S_ConnectedHandler);		
 		_onRecv.Add((ushort)MsgId.SLogin, MakePacket<S_Login>);

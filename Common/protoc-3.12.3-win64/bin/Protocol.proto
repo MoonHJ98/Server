@@ -31,6 +31,7 @@ enum MsgId {
 	S_MATCHING_CONNECTED = 25;
 	C_MATCHING_LOGIN = 26;
 	S_ENTER_MATCHING = 27;
+	S_CHAT = 28;
 
 	// LogIn
 	S_CONNECTED = 100;
@@ -363,4 +364,7 @@ message C_MatchingLogin {
 
 message S_EnterMatching {
 	repeated string userNames = 1;
+}
+message S_Chat{
+	string chat = 1;
 }

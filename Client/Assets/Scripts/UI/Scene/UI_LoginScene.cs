@@ -47,6 +47,8 @@ public class UI_LoginScene : UI_Scene
 			Get<GameObject>((int)GameObjects.AccountName).GetComponent<InputField>().text = "";
 			Get<GameObject>((int)GameObjects.Password).GetComponent<InputField>().text = "";
 		});
+
+
 	}
 
 	public void OnClickLoginButton(PointerEventData evt)
@@ -76,5 +78,7 @@ public class UI_LoginScene : UI_Scene
 				popup.SetServers(res.ServerInfos);
 			}
 		});
+
+
 	}
 }

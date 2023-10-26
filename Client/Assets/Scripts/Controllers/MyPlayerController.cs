@@ -162,9 +162,9 @@ public class MyPlayerController : CreatureController
 	}
 	void GetUIKeyInput()
 	{
+		var gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
 		if (Input.GetKeyDown(KeyCode.I))
 		{
-			var gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
 			UI_Inventory invenUI = gameSceneUI.InvenUI;
 
 			if (invenUI.gameObject.activeSelf)
@@ -179,7 +179,6 @@ public class MyPlayerController : CreatureController
 		}
 		else if (Input.GetKeyDown(KeyCode.C))
 		{
-			var gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
 			UI_Stat statUI = gameSceneUI.StatUI;
 
 			if (statUI.gameObject.activeSelf)
@@ -191,6 +190,31 @@ public class MyPlayerController : CreatureController
 				statUI.gameObject.SetActive(true);
 				statUI.RefreshUI();
 			}
+		}
+		
+		else if(Input.GetKeyDown(KeyCode.Return))
+		{
+			if (string.IsNullOrEmpty(gameSceneUI.ChattingUI.inputField.text))
+			{
+				if(gameSceneUI.ChattingUI.inputField.interactable == true)
+				{
+					gameSceneUI.ChattingUI.inputField.Select();
+					return;
+				}
+
+				gameSceneUI.ChattingUI.inputField.ActivateInputField();
+				return;
+			}
+
+			ChattingReq chatPacket = new ChattingReq()
+			{
+				PlayerName = this.gameObject.name,
+				Chatting = gameSceneUI.ChattingUI.inputField.text
+			};
+			Managers.Web.SendChattingPostRequest<ChattingReq>("chatting/chat", chatPacket, (res) => {});
+
+			gameSceneUI.ChattingUI.inputField.text = null;
+			
 		}
 
 	}

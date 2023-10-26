@@ -30,3 +30,9 @@ public class LoginAccountPacketRes
 	public string AccountName;
 	public int Token;
 }
+
+public class ChattingReq
+{
+	public string PlayerName;
+	public string Chatting;
+}
