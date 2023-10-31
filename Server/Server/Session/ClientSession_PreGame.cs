@@ -126,9 +126,9 @@ namespace Server
 			MyPlayer.ObjectInfo.PosDirInfo.LookDirZ = -1f;
 
 			var rand = new Random();
-			MyPlayer.ObjectInfo.PosDirInfo.PosX = rand.Next(-20, 20);
+			MyPlayer.ObjectInfo.PosDirInfo.PosX = rand.Next(2, 10);
 			MyPlayer.ObjectInfo.PosDirInfo.PosY = 0;
-			MyPlayer.ObjectInfo.PosDirInfo.PosZ = rand.Next(-30, 30);
+			MyPlayer.ObjectInfo.PosDirInfo.PosZ = rand.Next(-15, 15);
 			MyPlayer.ObjectInfo.SpawnInfo = SpawnInfo.Player;
 
 

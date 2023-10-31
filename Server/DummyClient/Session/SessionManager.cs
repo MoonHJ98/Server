@@ -23,7 +23,7 @@ public class SessionManager
 			_sessions.Add(session);
             Console.WriteLine($"Connected ({_sessions.Count}) Players");
 
-			Thread.Sleep(3000);
+			Thread.Sleep(2000);
 			return session;
         }
 	}

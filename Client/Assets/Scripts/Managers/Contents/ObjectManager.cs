@@ -295,7 +295,7 @@ public class ObjectManager
 				}
 				
 				// 몬스터 생성
-				for (int k = 0; k < 1;  k++)
+				for (int k = 0; k < 10;  k++)
 				{
 					GameObject monster = Managers.Resource.Instantiate("Creature/My_Goblin_rouge_b");
 

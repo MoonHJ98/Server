@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\UI\Scene\UI_Inventory_Item.cs" />
     <Compile Include="Assets\Scripts\Controllers\DungeonMonsterController.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_AutoStopLoopedEffect.cs" />
+    <Compile Include="Assets\Scripts\UI\Scene\UI_Chatting.cs" />
     <Compile Include="Assets\Scripts\Data\Data.Contents.cs" />
     <Compile Include="Assets\Scripts\Controllers\CreatureController.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\UI_Popup.cs" />
@@ -128,7 +129,6 @@
     <Compile Include="Assets\Scripts\Packet\Protocol.cs" />
     <Compile Include="Assets\Scripts\Managers\Core\PoolManager.cs" />
     <Compile Include="Assets\Resources\Monster\Mushroom\Script\MushroomMon_Ani_Test.cs" />
-    <Compile Include="Assets\Scripts\UI\Scene\UI_Chatting.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\JMO Assets\Cartoon FX (legacy)\Shaders\CFX3 Multiply Color.shader" />

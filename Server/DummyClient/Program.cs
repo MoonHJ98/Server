@@ -6,7 +6,7 @@ using System.Threading;
 
 class Program
 {
-	static int DummyClientSount { get; } = 200;
+	static int DummyClientSount { get; } = 50;
 
 	static void Main(string[] args)
 	{

@@ -15,7 +15,7 @@ namespace Server.Game
 	// JobQueue를 적용한 시점에서 아래 함수들을 GameRoom이외의 공간에서 사용하게되면 문제가 됨
 	public partial class GameRoom : JobSerializer
 	{
-		public const int VisionRange = 10;
+		public const int VisionRange = 15;
 		public int RoomId { get; set; }
 
 		List<Player> _players = new List<Player>();

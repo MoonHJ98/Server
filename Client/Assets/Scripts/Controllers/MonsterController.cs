@@ -59,9 +59,6 @@ public class MonsterController : CreatureController
 			case CreatureState.Idle:
 				agent.velocity = Vector3.zero;
 				agent.isStopped = true;
-				//length = Vector3.Distance(transform.position, Position);
-				//if (length >= 0.1f)
-				//	transform.position = Position;
 				break;
 			case CreatureState.Falling:
 				break;
@@ -91,6 +88,9 @@ public class MonsterController : CreatureController
 		if (State != CreatureState.Moving)
 			return;
 
+		if (animator.GetCurrentAnimatorStateInfo(0).IsName("power_attack"))
+			return;
+
         if (targetPos == null)
         {
 			return;
@@ -110,8 +110,6 @@ public class MonsterController : CreatureController
 		agent.SetDestination(target);
 
 		transform.LookAt(target);
-
-
 
 
 	}

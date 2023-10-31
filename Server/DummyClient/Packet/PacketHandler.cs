@@ -154,4 +154,7 @@ public class PacketHandler
 	public static void S_EnterMatchingHandler(PacketSession session, IMessage packet)
 	{
 	}
+	public static void S_ChatHandler(PacketSession session, IMessage packet)
+	{
+	}
 }
