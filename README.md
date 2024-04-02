@@ -28,23 +28,23 @@ Dungeon Server
 1. 스레드
 Zone Server의 원활한 작동을 위해 스레드를 여러 개로 나눴다
 
-① Receive Packet(N개)
-.net Core의 Thread Pool에서 관리한다. N은 입장한 유저 수이다.
+    ① Receive Packet(N개)
+    .net Core의 Thread Pool에서 관리한다. N은 입장한 유저 수이다.
 
-② Game Logic
-게임의 로직의 돌아가는 스레드이다. 유저와 몬스터의 상태를 관리한다.
+    ② Game Logic
+    게임의 로직의 돌아가는 스레드이다. 유저와 몬스터의 상태를 관리한다.
 
-③ Send Packet
-여러 클라이언트에서 보낸 패킷을 모아두다가 전달하는 스레드이다.
-순서를 유지하기 위해 Queue를 사용한다.
+    ③ Send Packet
+    여러 클라이언트에서 보낸 패킷을 모아두다가 전달하는 스레드이다.
+    순서를 유지하기 위해 Queue를 사용한다.
 
-④ DB
-DB에 접근에 데이터를 읽고 쓰는 스레드이다.
-순서를 유지하기 위해 Queue를 사용한다.
-모든 DB접근은 비동기로 작동되도록 구현했다.
+    ④ DB
+    DB에 접근에 데이터를 읽고 쓰는 스레드이다.
+    순서를 유지하기 위해 Queue를 사용한다.
+    모든 DB접근은 비동기로 작동되도록 구현했다.
 
-⑤ Chatting
-Chatting Server에서 전달된 채팅을 Zone, Dungeon 내의 모든 유저에게 전달한다.
+    ⑤ Chatting
+    Chatting Server에서 전달된 채팅을 Zone, Dungeon 내의 모든 유저에게 전달한다.
 
 2. 이동 패킷 최적화
 클라이언트에서 이동키를 입력하면 캐릭터 바로 앞으로 이동하는 방식이기 때문에 이동 패킷을 전달하는 것에 대해 최적화가 필요했다.
